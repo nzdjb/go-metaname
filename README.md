@@ -4,10 +4,10 @@ A Go library implementing the [Metaname](https://metaname.net.nz) API.
 
 ## Usage
 
-Create a client with NewClient, passing it your account reference and API key, then use it to call the needed functions.
+Create a client with NewMetanameClient, passing it your account reference and API key, then use it to call the needed functions.
 
 ```go
-client := NewClient(os.Getenv("ACCOUNT_REF"), os.Getenv("API_KEY"))
+client := NewMetanameClient(os.Getenv("ACCOUNT_REF"), os.Getenv("API_KEY"))
 client.DeleteDnsRecord(ctx, "example.org", "1234")
 ```
 

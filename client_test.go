@@ -23,15 +23,15 @@ func (fc *FauxClient) Request(context context.Context, host string, method strin
 }
 
 func TestNewClient(t *testing.T) {
-	c := NewClient("username", "apikey")
+	c := NewMetanameClient("username", "apikey")
 	assert.Equal(t, "https://metaname.net/api/1.1", c.Host)
 	assert.Equal(t, "username", c.AccountReference)
 	assert.Equal(t, "apikey", c.APIKey)
 }
 
 func TestDnsZone(t *testing.T) {
-	c := &Client{
-		Client:           &FauxClient{},
+	c := &MetanameClient{
+		RpcClient:        &FauxClient{},
 		Host:             "abc",
 		AccountReference: "def",
 		APIKey:           "ghi",
@@ -40,14 +40,14 @@ func TestDnsZone(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	assert.True(t, c.Client.(*FauxClient).requestCalled)
-	assert.Equal(t, "abc", c.Client.(*FauxClient).hostUsed)
-	assert.Equal(t, "dns_zone", c.Client.(*FauxClient).methodUsed)
-	assert.Equal(t, []interface{}{"def", "ghi", "testzone.nz"}, c.Client.(*FauxClient).paramsUsed)
+	assert.True(t, c.RpcClient.(*FauxClient).requestCalled)
+	assert.Equal(t, "abc", c.RpcClient.(*FauxClient).hostUsed)
+	assert.Equal(t, "dns_zone", c.RpcClient.(*FauxClient).methodUsed)
+	assert.Equal(t, []interface{}{"def", "ghi", "testzone.nz"}, c.RpcClient.(*FauxClient).paramsUsed)
 }
 func TestConfigureZone(t *testing.T) {
-	c := &Client{
-		Client:           &FauxClient{},
+	c := &MetanameClient{
+		RpcClient:        &FauxClient{},
 		Host:             "abc",
 		AccountReference: "def",
 		APIKey:           "ghi",
@@ -56,15 +56,15 @@ func TestConfigureZone(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	assert.True(t, c.Client.(*FauxClient).requestCalled)
-	assert.Equal(t, "abc", c.Client.(*FauxClient).hostUsed)
-	assert.Equal(t, "configure_zone", c.Client.(*FauxClient).methodUsed)
-	assert.Equal(t, []interface{}{"def", "ghi", "testzone.nz", []ResourceRecord{}, nil}, c.Client.(*FauxClient).paramsUsed)
+	assert.True(t, c.RpcClient.(*FauxClient).requestCalled)
+	assert.Equal(t, "abc", c.RpcClient.(*FauxClient).hostUsed)
+	assert.Equal(t, "configure_zone", c.RpcClient.(*FauxClient).methodUsed)
+	assert.Equal(t, []interface{}{"def", "ghi", "testzone.nz", []ResourceRecord{}, nil}, c.RpcClient.(*FauxClient).paramsUsed)
 }
 
 func TestCreateDnsRecord(t *testing.T) {
-	c := &Client{
-		Client:           &FauxClient{},
+	c := &MetanameClient{
+		RpcClient:        &FauxClient{},
 		Host:             "abc",
 		AccountReference: "def",
 		APIKey:           "ghi",
@@ -79,15 +79,15 @@ func TestCreateDnsRecord(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	assert.True(t, c.Client.(*FauxClient).requestCalled)
-	assert.Equal(t, "abc", c.Client.(*FauxClient).hostUsed)
-	assert.Equal(t, "create_dns_record", c.Client.(*FauxClient).methodUsed)
-	assert.Equal(t, []interface{}{"def", "ghi", "testzone.nz", record}, c.Client.(*FauxClient).paramsUsed)
+	assert.True(t, c.RpcClient.(*FauxClient).requestCalled)
+	assert.Equal(t, "abc", c.RpcClient.(*FauxClient).hostUsed)
+	assert.Equal(t, "create_dns_record", c.RpcClient.(*FauxClient).methodUsed)
+	assert.Equal(t, []interface{}{"def", "ghi", "testzone.nz", record}, c.RpcClient.(*FauxClient).paramsUsed)
 }
 
 func TestCreateMXDnsRecord(t *testing.T) {
-	c := &Client{
-		Client:           &FauxClient{},
+	c := &MetanameClient{
+		RpcClient:        &FauxClient{},
 		Host:             "abc",
 		AccountReference: "def",
 		APIKey:           "ghi",
@@ -103,15 +103,15 @@ func TestCreateMXDnsRecord(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	assert.True(t, c.Client.(*FauxClient).requestCalled)
-	assert.Equal(t, "abc", c.Client.(*FauxClient).hostUsed)
-	assert.Equal(t, "create_dns_record", c.Client.(*FauxClient).methodUsed)
-	assert.Equal(t, []interface{}{"def", "ghi", "testzone.nz", record}, c.Client.(*FauxClient).paramsUsed)
+	assert.True(t, c.RpcClient.(*FauxClient).requestCalled)
+	assert.Equal(t, "abc", c.RpcClient.(*FauxClient).hostUsed)
+	assert.Equal(t, "create_dns_record", c.RpcClient.(*FauxClient).methodUsed)
+	assert.Equal(t, []interface{}{"def", "ghi", "testzone.nz", record}, c.RpcClient.(*FauxClient).paramsUsed)
 }
 
 func TestUpdateDnsRecord(t *testing.T) {
-	c := &Client{
-		Client:           &FauxClient{},
+	c := &MetanameClient{
+		RpcClient:        &FauxClient{},
 		Host:             "abc",
 		AccountReference: "def",
 		APIKey:           "ghi",
@@ -126,14 +126,14 @@ func TestUpdateDnsRecord(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	assert.True(t, c.Client.(*FauxClient).requestCalled)
-	assert.Equal(t, "abc", c.Client.(*FauxClient).hostUsed)
-	assert.Equal(t, "update_dns_record", c.Client.(*FauxClient).methodUsed)
-	assert.Equal(t, []interface{}{"def", "ghi", "testzone.nz", "1234", record}, c.Client.(*FauxClient).paramsUsed)
+	assert.True(t, c.RpcClient.(*FauxClient).requestCalled)
+	assert.Equal(t, "abc", c.RpcClient.(*FauxClient).hostUsed)
+	assert.Equal(t, "update_dns_record", c.RpcClient.(*FauxClient).methodUsed)
+	assert.Equal(t, []interface{}{"def", "ghi", "testzone.nz", "1234", record}, c.RpcClient.(*FauxClient).paramsUsed)
 }
 func TestDeleteDnsRecord(t *testing.T) {
-	c := &Client{
-		Client:           &FauxClient{},
+	c := &MetanameClient{
+		RpcClient:        &FauxClient{},
 		Host:             "abc",
 		AccountReference: "def",
 		APIKey:           "ghi",
@@ -142,8 +142,8 @@ func TestDeleteDnsRecord(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	assert.True(t, c.Client.(*FauxClient).requestCalled)
-	assert.Equal(t, "abc", c.Client.(*FauxClient).hostUsed)
-	assert.Equal(t, "delete_dns_record", c.Client.(*FauxClient).methodUsed)
-	assert.Equal(t, []interface{}{"def", "ghi", "testzone.nz", "1234"}, c.Client.(*FauxClient).paramsUsed)
+	assert.True(t, c.RpcClient.(*FauxClient).requestCalled)
+	assert.Equal(t, "abc", c.RpcClient.(*FauxClient).hostUsed)
+	assert.Equal(t, "delete_dns_record", c.RpcClient.(*FauxClient).methodUsed)
+	assert.Equal(t, []interface{}{"def", "ghi", "testzone.nz", "1234"}, c.RpcClient.(*FauxClient).paramsUsed)
 }
