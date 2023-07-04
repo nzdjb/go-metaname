@@ -1,3 +1,4 @@
+// Package metaname provides a client for the Metaname API.
 package metaname
 
 import (
