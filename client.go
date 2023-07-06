@@ -62,8 +62,8 @@ func (c *MetanameClient) DnsZone(ctx context.Context, domainName string) ([]Reso
 	return result, err
 }
 
-func (c *MetanameClient) ConfigureZone(ctx context.Context, zoneName string) error {
-	params := []interface{}{c.AccountReference, c.APIKey, zoneName, []ResourceRecord{}, nil}
+func (c *MetanameClient) ConfigureZone(ctx context.Context, zoneName string, records []ResourceRecord, options interface{}) error {
+	params := []interface{}{c.AccountReference, c.APIKey, zoneName, records, options}
 	err := c.RpcClient.Request(ctx, c.Host, "configure_zone", params, nil)
 	return ignoreNullResultError(err)
 }

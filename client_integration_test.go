@@ -16,7 +16,7 @@ var testAccountAPIKey string = os.Getenv("METANAME_ACCOUNT_API_KEY")
 func TestIntegrationConfigureZone(t *testing.T) {
 	c := NewMetanameClient(testAccountReference, testAccountAPIKey)
 	c.Host = "https://test.metaname.net/api/1.1"
-	err := c.ConfigureZone(context.TODO(), "testzone.nz")
+	err := c.ConfigureZone(context.TODO(), "testzone.nz", []ResourceRecord{}, nil)
 	if err != nil {
 		panic(err)
 	}

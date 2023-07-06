@@ -52,7 +52,7 @@ func TestConfigureZone(t *testing.T) {
 		AccountReference: "def",
 		APIKey:           "ghi",
 	}
-	err := c.ConfigureZone(context.TODO(), "testzone.nz")
+	err := c.ConfigureZone(context.TODO(), "testzone.nz", []ResourceRecord{}, nil)
 	if err != nil {
 		panic(err)
 	}
