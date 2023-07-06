@@ -3,6 +3,7 @@ package metaname
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/AdamSLevy/jsonrpc2/v14"
 )
@@ -45,13 +46,13 @@ func (c *MetanameClient) CreateDnsRecord(ctx context.Context, domainName string,
 func (c *MetanameClient) UpdateDnsRecord(ctx context.Context, domainName string, reference string, record ResourceRecord) error {
 	params := []interface{}{c.AccountReference, c.APIKey, domainName, reference, record}
 	err := c.RpcClient.Request(ctx, c.Host, "update_dns_record", params, nil)
-	return err
+	return ignoreNullResultError(err)
 }
 
 func (c *MetanameClient) DeleteDnsRecord(ctx context.Context, domainName string, reference string) error {
 	params := []interface{}{c.AccountReference, c.APIKey, domainName, reference}
 	err := c.RpcClient.Request(ctx, c.Host, "delete_dns_record", params, nil)
-	return err
+	return ignoreNullResultError(err)
 }
 
 func (c *MetanameClient) DnsZone(ctx context.Context, domainName string) ([]ResourceRecord, error) {
@@ -64,5 +65,23 @@ func (c *MetanameClient) DnsZone(ctx context.Context, domainName string) ([]Reso
 func (c *MetanameClient) ConfigureZone(ctx context.Context, zoneName string) error {
 	params := []interface{}{c.AccountReference, c.APIKey, zoneName, []ResourceRecord{}, nil}
 	err := c.RpcClient.Request(ctx, c.Host, "configure_zone", params, nil)
+	return ignoreNullResultError(err)
+}
+
+// Workaround until https://github.com/AdamSLevy/jsonrpc2/issues/11 is fixed.
+type nullSafeResponse struct {
+	Result interface{} `json:"result"`
+}
+
+func ignoreNullResultError(err error) error {
+	if unexerr, ok := err.(jsonrpc2.ErrorUnexpectedHTTPResponse); ok {
+		var res nullSafeResponse
+		unmerr := json.Unmarshal(unexerr.Body, &res)
+		if unmerr != nil {
+			return err
+		} else if res.Result == nil {
+			return nil
+		}
+	}
 	return err
 }
