@@ -22,7 +22,7 @@ type MetanameClient struct {
 type ResourceRecord struct {
 	Name string `json:"name"`
 	Type string `json:"type"`
-	Aux  int    `json:"aux,omitempty"`
+	Aux  *int   `json:"aux"`
 	Ttl  int    `json:"ttl"`
 	Data string `json:"data"`
 }

@@ -72,6 +72,7 @@ func TestCreateDnsRecord(t *testing.T) {
 	record := ResourceRecord{
 		Name: "testrecord",
 		Type: "A",
+		Aux:  nil,
 		Data: "127.0.0.1",
 		Ttl:  300,
 	}
@@ -92,10 +93,11 @@ func TestCreateMXDnsRecord(t *testing.T) {
 		AccountReference: "def",
 		APIKey:           "ghi",
 	}
+	x := int(30)
 	record := ResourceRecord{
 		Name: "testrecord",
 		Type: "MX",
-		Aux:  30,
+		Aux:  &x,
 		Data: "127.0.0.1",
 		Ttl:  300,
 	}
