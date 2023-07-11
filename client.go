@@ -39,7 +39,7 @@ func NewMetanameClient(accountReference string, apiKey string) *MetanameClient {
 func (c *MetanameClient) CreateDnsRecord(ctx context.Context, domainName string, record ResourceRecord) (string, error) {
 	params := []interface{}{c.AccountReference, c.APIKey, domainName, record}
 	var result string
-	err := c.RpcClient.Request(ctx, c.Host, "create_dns_record", params, result)
+	err := c.RpcClient.Request(ctx, c.Host, "create_dns_record", params, &result)
 	return result, err
 }
 
@@ -58,7 +58,7 @@ func (c *MetanameClient) DeleteDnsRecord(ctx context.Context, domainName string,
 func (c *MetanameClient) DnsZone(ctx context.Context, domainName string) ([]ResourceRecord, error) {
 	params := []interface{}{c.AccountReference, c.APIKey, domainName}
 	var result []ResourceRecord
-	err := c.RpcClient.Request(ctx, c.Host, "dns_zone", params, result)
+	err := c.RpcClient.Request(ctx, c.Host, "dns_zone", params, &result)
 	return result, err
 }
 
