@@ -20,3 +20,7 @@ These functions have been implemented:
 * [DeleteDnsRecord](https://metaname.net/api/1.1/doc#delete_dns_record)
 * [DnsZone](https://metaname.net/api/1.1/doc#dns_zone)
 * [ConfigureZone](https://metaname.net/api/1.1/doc#configure_zone)
+
+## Known issues
+
+* ResourceRecords for accounts where the API key was first created before 2023-07-11 will receive Aux values of 0 on MX and SRV records when calling DnsZone. If this affects you, you can email Metaname support and ask them to "flag my account for the numeric aux fix".
