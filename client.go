@@ -20,11 +20,12 @@ type MetanameClient struct {
 }
 
 type ResourceRecord struct {
-	Name string `json:"name"`
-	Type string `json:"type"`
-	Aux  *int   `json:"aux"`
-	Ttl  int    `json:"ttl"`
-	Data string `json:"data"`
+	Name      string  `json:"name"`
+	Type      string  `json:"type"`
+	Aux       *int    `json:"aux"`
+	Ttl       int     `json:"ttl"`
+	Data      string  `json:"data"`
+	Reference *string `json:"reference,omitempty"`
 }
 
 func NewMetanameClient(accountReference string, apiKey string) *MetanameClient {
