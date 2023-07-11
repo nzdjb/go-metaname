@@ -8,12 +8,12 @@ import (
 	"github.com/AdamSLevy/jsonrpc2/v14"
 )
 
-type IJsonRpc2Client interface {
+type iJsonRpc2Client interface {
 	Request(context context.Context, host string, method string, params interface{}, result interface{}) error
 }
 
 type MetanameClient struct {
-	RpcClient        IJsonRpc2Client
+	RpcClient        iJsonRpc2Client
 	Host             string
 	AccountReference string
 	APIKey           string
