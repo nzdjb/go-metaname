@@ -1,6 +1,6 @@
 # Go Metaname
 
-A Go library implementing the [Metaname](https://metaname.net.nz) API.
+A Go library implementing the [Metaname](https://metaname.net) API.
 
 ## Usage
 
