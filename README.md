@@ -23,4 +23,4 @@ These functions have been implemented:
 
 ## Known issues
 
-* ResourceRecords for accounts where the API key was first created before 2023-07-11 will receive Aux values of 0 on MX and SRV records when calling DnsZone. If this affects you, you'll see a "Switch to the new DNS zone API" link on the [Metaname settings page](https://metaname.net/my/settings). To resolve this information, read the information at that link and click the "Use the new API" button.
+* ResourceRecords for accounts where the API key was first created before 2023-07-11 will receive Aux values of 0 on MX and SRV records when calling DnsZone. If this affects you, you'll see a "Switch to the new DNS zone API" link on the [Metaname settings page](https://metaname.net/my/settings). To resolve this issue, read the information at the link and click the "Use the new API" button.
